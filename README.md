@@ -126,6 +126,20 @@ Once the skill is installed, you can ask Claude things like:
 - "Show me my wanted movies"
 - "Check my Radarr status"
 
+## Quality Profile Configuration
+
+When adding movies, Radarr requires a quality profile to be specified. By default, the proxy uses the first available quality profile from your Radarr instance.
+
+If you want to use a specific quality profile:
+
+1. Find your desired profile ID in Radarr under Settings → Profiles → Quality Profiles
+2. Modify the `add_movie` endpoint in `proxy/server.py` to use your preferred profile ID:
+   ```python
+   quality_profile_id = data.get('quality_profile_id', 7)  # Replace 7 with your profile ID
+   ```
+
+Alternatively, you can pass `quality_profile_id` in the request body when adding movies.
+
 ## Security Notes
 
 - The proxy token is a SHA256 hash, separate from your Radarr API key
